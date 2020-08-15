@@ -4,11 +4,16 @@ import "fmt"
 
 func main() {
 	// var card string = "Ace of Spades"   -- long way
-	card := newCard()
+	// card := newCard()
 
-	fmt.Println(card)
-}
+	cards := newDeck()
+	cards = append(cards, "Joker")
 
-func newCard() string {
-	return "Five of Diamonds"
+	hand, remainingDeck := deal(cards, 5)
+
+	fmt.Println()
+	hand.print()
+	fmt.Println()
+	remainingDeck.print()
+
 }
