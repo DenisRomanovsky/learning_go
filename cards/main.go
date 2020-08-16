@@ -16,4 +16,9 @@ func main() {
 	fmt.Println()
 	remainingDeck.print()
 
+	remainingDeck.saveToFile("remaining_deck")
+
+	newRemainingDeck := newDeckFromFile("remaining_deck")
+	fmt.Println()
+	newRemainingDeck.print()
 }
