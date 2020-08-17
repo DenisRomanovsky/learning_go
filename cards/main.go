@@ -21,4 +21,8 @@ func main() {
 	newRemainingDeck := newDeckFromFile("remaining_deck")
 	fmt.Println()
 	newRemainingDeck.print()
+
+	fmt.Println()
+	newRemainingDeck.shuffle()
+	newRemainingDeck.print()
 }
