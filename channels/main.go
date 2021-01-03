@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -23,9 +24,8 @@ func main() {
 
 	// As soon as the check is done - send the
 	// message to channel -> trigger the check again
-	// using the infinite loop
-	for {
-		go checkLink(<-c, c)
+	for l := range c {
+		go checkLink(l, c)
 	}
 
 }
@@ -35,11 +35,15 @@ func checkLink(link string, c chan string) {
 
 	_, err := http.Get(link)
 	if err != nil {
-		fmt.Println(link, " might be down!")
-		c <- link
+		logWithRestart(" might be down!", link, c)
 		return
 	}
 
-	fmt.Println(link, " is up!")
+	logWithRestart(" is up!", link, c)
+}
+
+func logWithRestart(message string, link string, c chan string) {
+	fmt.Println(message + link)
+	time.Sleep(time.Second * 2) // Sleep the routine for 2 seconds
 	c <- link
 }
